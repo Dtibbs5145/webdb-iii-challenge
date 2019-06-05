@@ -26,4 +26,42 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.post('/', async (req, res) => {
+    try {
+        const student = await StudentDB.add(req.body);
+        res.status(201).json(student);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'There was an error posting this student' });
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const student = await StudentDB.update(req.params.id, req.body);
+        if (student) {
+            res.statusCode(200).json(student);
+        } else {
+            res.status(404).json({ message: 'There was a problem updating this student. Make sure you have all the proper fields filled in' });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'There was an error updating this student' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const count = await StudentDB.remove(req.params.id);
+        if (count > o) {
+            res.status(200).json({ message: 'This student was deleted' });
+        } else {
+            res.status(404).json({ message: 'There is a problem with deleting this student.' });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'An error ocurred while trying '})
+    }
+})
+
 module.exports = router;

@@ -5,7 +5,7 @@ const CohortDB = require('../models/cohort-model');
 router.get('/', async (req, res) => {
     try {
         const cohort = await CohortDB.find();
-        res.status(200),json(cohort);
+        res.status(200).json(cohort);
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'There was an error trying to find the cohorts. :(' });
